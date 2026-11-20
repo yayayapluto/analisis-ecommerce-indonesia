@@ -2,6 +2,7 @@
 
 **Tujuan**  
 Mengeksplorasi hubungan antara aktivitas belanja pelanggan dan nilai lifetime value (Y) menggunakan dataset e-commerce dari Kaggle. Dokumentasi ini mencakup struktur proyek, kebutuhan sistem, alur pengerjaan, cara menjalankan ulang, penjelasan script, daftar output, catatan metodologi, serta panduan pemecahan masalah. Ringkasan hasil dan visualisasi tersedia di [RESULT.md](RESULT.md).
+Rincian alur dari pencarian dataset sampai publikasi ada di [docs/alur-pengerjaan.md](docs/alur-pengerjaan.md).
 
 ---
 
@@ -54,6 +55,8 @@ D:/Kuliah/statistik/projek_uas/
 ├─ presentasi/
 │   └─ slide.md
 │
+├─ docs/
+│   └─ alur-pengerjaan.md                      # Alur lengkap dari pencarian data sampai publikasi
 ├─ RESULT.md                                   # Ringkasan hasil dan visualisasi
 ├─ projek_uas.Rproj                            # Berkas proyek RStudio
 └─ README.md                                   # Dokumen ini
