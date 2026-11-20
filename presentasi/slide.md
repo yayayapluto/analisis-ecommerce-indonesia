@@ -1,4 +1,4 @@
-# Draft presentasi: Analisis regresi transaksi e-commerce Indonesia
+# Presentasi: Analisis regresi Lifetime_Value pada data e-commerce global
 
 Setiap slide memuat isi layar dan catatan demo. Path gambar dihitung relatif dari berkas `presentasi/slide.md`.
 
@@ -8,16 +8,15 @@ Setiap slide memuat isi layar dan catatan demo. Path gambar dihitung relatif dar
 
 **Isi slide**
 
-- Analisis regresi total pembayaran pada transaksi e-commerce Indonesia
-- Tugas Statistik, bidang Ekonomi dan Bisnis
-- [Nama]
-- [NIM]
-- [Mata Kuliah], [Dosen], [Tanggal]
+- Analisis regresi `Lifetime_Value` pada data perilaku pelanggan e-commerce global.
+- Tugas Statistik, bidang Ekonomi dan Bisnis.
+- Sumber data: Kaggle, ecommerce customer behavior dataset.
+- Fokus: hubungan `Lifetime_Value` dengan `Total_Purchases`, `Average_Order_Value`, dan `Discount_Usage_Rate`.
 
 **Catatan demo**
 
-- Buka slide ini, sebutkan bahwa unit analisisnya adalah transaksi, bukan konsumen.
-- Identitas masih memakai placeholder dan akan diisi sebelum presentasi.
+- Awali dengan unit analisis, yaitu pelanggan dalam dataset, bukan transaksi produksi.
+- Sebut bahwa seluruh angka pada slide berasal dari berkas hasil `R/analysis.R`.
 
 ---
 
@@ -25,15 +24,15 @@ Setiap slide memuat isi layar dan catatan demo. Path gambar dihitung relatif dar
 
 **Isi slide**
 
-- Bidang: Ekonomi dan Bisnis, dengan fokus pada transaksi e-commerce Indonesia.
-- Pertanyaan utama: variabel apa yang berkaitan dengan total pembayaran?
-- Tujuan: mengukur hubungan total pembayaran dengan jumlah barang, diskon, dan ongkos kirim yang dibayar pembeli.
+- Bidang: Ekonomi dan Bisnis, dengan fokus pada nilai lifetime pelanggan.
+- Pertanyaan utama: variabel apa yang berkaitan dengan `Lifetime_Value`?
+- Tujuan: mengukur hubungan `Lifetime_Value` dengan jumlah pembelian, rata-rata nilai pesanan, dan tingkat penggunaan diskon.
 - Hasil akhir: perbandingan model regresi sederhana dan berganda, lalu tiga skenario prediksi di `output/tables/prediksi.csv`.
 
 **Catatan demo**
 
-- Tekankan bahwa analisis ini memakai data transaksi yang sudah tersedia, bukan survei baru.
-- Sebut empat kolom model pada slide berikutnya sebelum masuk ke angka.
+- Tekankan bahwa analisis bersifat asosiatif, bukan sebab akibat.
+- Sebut keempat variabel model sebelum masuk ke angka.
 
 ---
 
@@ -41,17 +40,15 @@ Setiap slide memuat isi layar dan catatan demo. Path gambar dihitung relatif dar
 
 **Isi slide**
 
-- Dataset: Indonesia E-Commerce Sales, Kaggle `zkyfauzi/indonesia-ecommerce-sales`.
-- Lisensi: CC0 Public Domain.
-- URL: https://www.kaggle.com/datasets/zkyfauzi/indonesia-ecommerce-sales
-- Ukuran awal: 18.868 baris dan 19 kolom.
-- Berkas lokal: `data/raw/ec_indonesia.csv`.
-- Metadata Kaggle menyebut dataset ini sebagai data latihan preprocessing, bukan data produksi real-time.
+- Dataset: ecommerce customer behavior dataset, Kaggle `dhairyajeetsingh/ecommerce-customer-behavior-dataset`.
+- URL dataset: https://www.kaggle.com/datasets/dhairyajeetsingh/ecommerce-customer-behavior-dataset
+- Ukuran awal: 50.000 baris dan 25 kolom.
+- Status data: dataset global, bukan data Indonesia, dan bukan data transaksi produksi yang terverifikasi.
 
 **Catatan demo**
 
-- Tunjukkan `output/tables/provenance.txt` sebagai bukti sumber, lisensi, dan tanggal verifikasi.
-- Jika dosen menanyakan ukuran berkas, sebut 3.620.891 byte sesuai metadata endpoint Kaggle.
+- Tunjukkan URL dataset lalu sebut bahwa berkas mentah tidak disertakan di repo karena ukurannya.
+- Jika ditanya soal wilayah, jawab terus terang bahwa dataset ini tidak dikhususkan untuk Indonesia.
 
 ---
 
@@ -59,16 +56,15 @@ Setiap slide memuat isi layar dan catatan demo. Path gambar dihitung relatif dar
 
 **Isi slide**
 
-- Nama kolom model diseragamkan, antara lain `Total Pembayaran` menjadi `total_pembayaran`.
-- Kolom model dikonversi ke numerik; desimal memakai titik.
-- Baris duplikat: 0.
-- Baris dengan NA pada variabel model: 283, semuanya berasal dari `total_qty`.
-- Baris final: 18.868 - 283 = 18.585.
+- Dataset CSV dibaca lalu empat variabel model dikonversi ke numerik.
+- Baris dengan NA pada `Lifetime_Value`, `Total_Purchases`, `Average_Order_Value`, atau `Discount_Usage_Rate` dibuang.
+- Tidak ada filter lain, sehingga tidak ada penghapusan duplikat, outlier, atau kategori tertentu.
+- Baris awal 50.000, baris final 46.500, baris dibuang 3.500.
 
 **Catatan demo**
 
-- Buka `output/analisis_log.txt` dan arahkan ke bagian "Jumlah NA per kolom" sampai "Jumlah baris final".
-- Jelaskan bahwa penghapusan NA dilakukan setelah pengecekan duplikat, sehingga jumlah duplikat tetap 0.
+- Buka `output/analisis_log.txt` dan arahkan ke bagian jumlah baris awal, jumlah baris dibuang, dan jumlah baris final.
+- Jelaskan bahwa aturan ini dipakai sebelum statistik deskriptif, korelasi, dan regresi dihitung.
 
 ---
 
@@ -76,39 +72,40 @@ Setiap slide memuat isi layar dan catatan demo. Path gambar dihitung relatif dar
 
 **Isi slide**
 
-| Peran | Variabel dalam model | Median | SD |
-|---|---|---:|---:|
-| Y | Total Pembayaran | 21.800 | 143.140,09 |
-| X1 | `total_qty` | 1 | 7,80 |
-| X2 | Total Diskon (`total_diskon`) | 0 | 10.012,34 |
-| X3 | Ongkos Kirim Dibayar oleh Pembeli (`ongkos_kirim_dibayar_oleh_pembeli`) | 0 | 13.941,24 |
+| Peran | Variabel | Keterangan |
+|---|---|---|
+| Y | `Lifetime_Value` | Variabel respons, unit nilai dataset |
+| X1 | `Total_Purchases` | Jumlah pembelian |
+| X2 | `Average_Order_Value` | Rata-rata nilai pesanan |
+| X3 | `Discount_Usage_Rate` | Tingkat penggunaan diskon |
+
+- Satu unit angka mengikuti satuan dataset, bukan rupiah.
+- Pemetaan Y, X1, X2, dan X3 dipakai konsisten pada seluruh slide dan grafik.
 
 **Catatan demo**
 
-- Sebut pemetaan Y, X1, X2, X3 sekali di awal supaya pembaca tidak perlu menekan legenda grafik.
-- Tunjukkan bahwa median diskon dan ongkos kirim bernilai 0, sehingga banyak transaksi tidak memuat dua komponen ini.
+- Sebut pemetaan sekali di awal supaya pembaca tidak perlu menekan legenda grafik.
+- Tunjukkan bahwa model tidak memakai kolom lain dari 25 kolom yang tersedia.
 
 ---
 
-## Slide 6: Statistik deskriptif total pembayaran
+## Slide 6: Statistik deskriptif
 
 **Isi slide**
 
-- Mean: Rp50.997,58.
-- Median: Rp21.800, modus: 0.
-- SD: Rp143.140,09.
-- Minimum: Rp0, maksimum: Rp3.076.000.
-- Q1: Rp13.520, Q3: Rp42.288.
-- Mean jauh di atas median dan nilai maksimum mencapai Rp3.076.000, sehingga distribusi condong ke kanan.
+- Statistik deskriptif dihitung untuk Y, X1, X2, dan X3 pada sampel final n = 46.500.
+- Ringkasan mencakup mean, median, modus, varians, sd, minimum, Q1, Q2, Q3, dan maksimum.
+- Tabel lengkap tersaji di `output/tables/statistik_deskriptif.csv`.
+- Histogram dan boxplot `Lifetime_Value` dipakai untuk membaca bentuk distribusi dan titik ekstrem.
 
-![Distribusi Total Pembayaran](../output/plots/hist_y.png)
+![Distribusi Lifetime_Value](../output/plots/hist_y.png)
 
-![Boxplot Total Pembayaran](../output/plots/box_y.png)
+![Boxplot Lifetime_Value](../output/plots/box_y.png)
 
 **Catatan demo**
 
-- Tunjukkan histogram terlebih dahulu, lalu boxplot untuk memperlihatkan ekor kanan dan titik outlier.
-- Rujuk angka di `output/tables/statistik_deskriptif.csv`.
+- Tunjukkan histogram terlebih dahulu, lalu boxplot.
+- Rujuk `statistik_deskriptif.csv` bila dosen meminta nilai mean, median, atau kuartil.
 
 ---
 
@@ -118,24 +115,25 @@ Setiap slide memuat isi layar dan catatan demo. Path gambar dihitung relatif dar
 
 | Pasangan | Koefisien korelasi |
 |---|---:|
-| Y dengan X1 | 0.314 |
-| Y dengan X2 | 0.229 |
-| Y dengan X3 | 0.454 |
-| X1 dengan X2 | 0.728 |
+| Y dengan X1 | 0,620 |
+| Y dengan X2 | 0,153 |
+| Y dengan X3 | 0,001 |
+| X1 dengan X2 | 0,005 |
 
-- X3 memiliki korelasi terbesar dengan Y, yaitu 0.454.
-- X1 dan X2 berkorelasi 0.728, sehingga koefisien keduanya dalam model berganda perlu dibaca dengan hati-hati.
+- X1 memiliki hubungan linear terkuat dengan Y.
+- X2 dan X3 hanya memiliki hubungan linear yang sangat lemah dengan Y.
+- X1 dan X2 hampir tidak berkorelasi, sehingga tidak ada indikasi kuat multikolinearitas antara keduanya.
 
-![Kuantitas vs Total Pembayaran](../output/plots/scatter_qty_y.png)
+![Total_Purchases vs Lifetime_Value](../output/plots/scatter_purchases_y.png)
 
-![Diskon vs Total Pembayaran](../output/plots/scatter_diskon_y.png)
+![Average_Order_Value vs Lifetime_Value](../output/plots/scatter_order_value_y.png)
 
-![Ongkos Kirim vs Total Pembayaran](../output/plots/scatter_ongkir_y.png)
+![Discount_Usage_Rate vs Lifetime_Value](../output/plots/scatter_discount_y.png)
 
 **Catatan demo**
 
 - Tunjukkan tiga scatter plot secara berurutan sesuai urutan tabel korelasi.
-- Garis merah pada tiap plot adalah garis regresi linear dari model sederhana yang bersesuaian.
+- Tekankan bahwa korelasi tidak diperluas menjadi klaim sebab akibat.
 
 ---
 
@@ -143,17 +141,15 @@ Setiap slide memuat isi layar dan catatan demo. Path gambar dihitung relatif dar
 
 **Isi slide**
 
-- Model: Y = 36198.7 + 5767.4 X1.
-- Slope X1: 5767.4, dengan t = 45.13 dan p < 2e-16.
-- Intercept: 36198.7, dengan p < 2e-16.
-- R²: 0.0988; R² adjusted: 0.09872.
-- F = 2036, p < 2.2e-16.
-- Setiap tambahan 1 unit `total_qty` berhubungan dengan tambahan Rp5.767,4 pada total pembayaran, tetapi model ini hanya menjelaskan 9,88% variasi Y.
+- Model: Y = 394,764 + 79,725 X1.
+- Slope X1 = 79,725; intercept = 394,764.
+- R² = 0,3846, sehingga model menjelaskan sekitar 38,46% variasi `Lifetime_Value`.
+- Setiap tambahan satu unit `Total_Purchases` berhubungan dengan tambahan 79,725 unit nilai dataset pada `Lifetime_Value`.
 
 **Catatan demo**
 
 - Tunjukkan `output/tables/regresi_sederhana.txt`.
-- Kembali ke `scatter_qty_y.png` saat menjelaskan slope dan sebaran titik.
+- Kembali ke `scatter_purchases_y.png` saat menjelaskan slope dan sebaran titik.
 
 ---
 
@@ -161,18 +157,17 @@ Setiap slide memuat isi layar dan catatan demo. Path gambar dihitung relatif dar
 
 **Isi slide**
 
-- Model: Y = 22990 + 3938 X1 + 0.125 X2 + 4.134 X3.
-- R²: 0.2521; R² adjusted: 0.2520.
-- F = 2088, p < 2.2e-16.
-- X1 signifikan, p < 2e-16, koefisien 3938.
-- X3 signifikan, p < 2e-16, koefisien 4.134.
-- X2 tidak signifikan, p = 0.345, koefisien 0.125.
-- R² naik dari 0.0988 menjadi 0.2521 setelah X2 dan X3 masuk, tetapi X2 tidak memberi bukti statistik pada model ini.
+- Model: Y = 339,451 + 79,746 X1 + 0,772 X2 - 0,953 X3.
+- R² = 0,4075; R² adjusted sekitar 0,4075.
+- Model berganda signifikan secara keseluruhan.
+- X1 tetap menjadi prediktor utama dengan koefisien 79,746.
+- X2 berkoefisien 0,772 dan X3 berkoefisien -0,953, keduanya jauh lebih kecil daripada X1.
+- Penambahan X2 dan X3 menaikkan R² dari 0,3846 menjadi 0,4075.
 
 **Catatan demo**
 
 - Tunjukkan `output/tables/regresi_berganda.txt`, khususnya kolom `Estimate` dan `Pr(>|t|)`.
-- Jika ditanya soal X2, kaitkan dengan korelasi X1-X2 sebesar 0.728 pada slide 7.
+- Kaitkan kenaikan R² dengan korelasi X1-X2 sebesar 0,005 pada slide 7.
 
 ---
 
@@ -180,16 +175,17 @@ Setiap slide memuat isi layar dan catatan demo. Path gambar dihitung relatif dar
 
 **Isi slide**
 
-- VIF: X1 2.188921, X2 2.125484, X3 1.056990. Semua lebih kecil dari 2.2.
-- Normalitas residual ditolak: Shapiro-Wilk W = 0.27163, p < 2.2e-16, sampel acak n = 5000.
-- Heteroskedastisitas terdeteksi: Breusch-Pagan BP = 218.91, df = 3, p < 2.2e-16.
-- Prediksi memakai interval keyakinan 95%, tetapi dua asumsi di atas belum terpenuhi.
+- Evaluasi asumsi memakai VIF untuk multikolinearitas, Shapiro-Wilk untuk normalitas residual, dan Breusch-Pagan untuk heteroskedastisitas.
+- Nilai lengkap ketiga uji dibaca dari `output/tables/uji_asumsi.txt`.
+- Prediksi dihitung dari model berganda dengan interval keyakinan 95%.
 
-| Skenario | X1 | X2 | X3 | Prediksi Y (Rp) | Interval 95% (Rp) |
-|---|---:|---:|---:|---:|---:|
-| 1 | 1 | 0 | 0 | 26.931,69 | 25.034,71 - 28.828,67 |
-| 2 | 1 | 0 | 3.000 | 39.333,51 | 37.495,79 - 41.171,23 |
-| 3 | 2 | 0 | 0 | 30.869,41 | 29.005,93 - 32.732,90 |
+| Skenario | X1 | X2 | X3 | Prediksi Y |
+|---|---:|---:|---:|---:|
+| Rendah | 8 | 87,08 | 25,3 | 1.020,54 |
+| Menengah | 12 | 112,99 | 40,2 | 1.345,34 |
+| Tinggi | 17 | 144,47 | 57 | 1.752,36 |
+
+- Batas bawah dan batas atas 95% untuk ketiga skenario tersaji di `output/tables/prediksi.csv`.
 
 ![QQ-Plot Residual Model Berganda](../output/plots/qq_plot.png)
 
@@ -198,41 +194,41 @@ Setiap slide memuat isi layar dan catatan demo. Path gambar dihitung relatif dar
 **Catatan demo**
 
 - Tunjukkan `output/tables/uji_asumsi.txt` sebelum `output/tables/prediksi.csv`.
-- Akui keterbatasan model dengan terus terang: VIF aman, tetapi normalitas dan homogenitas varians residual tidak lolos uji.
+- Jelaskan bahwa angka prediksi merupakan ilustrasi model, bukan jaminan nilai pelanggan tertentu.
 
 ---
 
-## Slide 11: Cara demo di RStudio
+## Slide 11: Demo RStudio
 
 **Isi slide**
 
 - Pastikan working directory berada di root proyek `projek_uas` agar path relatif terbaca.
 - Buka `R/analysis.R` di RStudio, lalu jalankan seluruh skrip dengan `Source` atau `Ctrl+Shift+Enter`.
-- Tunjukkan `output/analisis_log.txt` untuk alur lengkap: 18.868 baris awal, 18.585 baris final, R², uji asumsi, dan prediksi.
+- Tunjukkan `output/analisis_log.txt` untuk alur lengkap: 50.000 baris awal, 46.500 baris final, R², uji asumsi, dan prediksi.
 - Tunjukkan `output/tables/statistik_deskriptif.csv`, `korelasi.csv`, `regresi_sederhana.txt`, `regresi_berganda.txt`, `uji_asumsi.txt`, dan `prediksi.csv`.
-- Tunjukkan `output/plots/*.png` sesuai slide 6, 7, dan 10.
+- Tunjukkan `output/plots/hist_y.png`, `box_y.png`, `scatter_purchases_y.png`, `scatter_order_value_y.png`, `scatter_discount_y.png`, `residual_vs_fitted.png`, dan `qq_plot.png`.
 
 **Catatan demo**
 
-- Jalankan skrip sekali di depan kelas, lalu memakai hasil yang sudah tersimpan untuk mempercepat sesi tanya jawab.
-- Jika ada pesan paket hilang, pasang `ggplot2`, `car`, dan `lmtest` sebelum demo.
+- Jalankan skrip sekali di depan kelas, lalu memakai hasil tersimpan untuk mempercepat sesi tanya jawab.
+- Jika R melaporkan paket belum tersedia, pasang paket yang diminta oleh pesan galat sebelum menjalankan ulang skrip.
 
 ---
 
-## Slide 12: Pertanyaan yang mungkin muncul
+## Slide 12: Tanya jawab
 
 **Isi slide**
 
-- **Mengapa X2 tidak signifikan?** Koefisiennya 0.125 dengan p = 0.345. Korelasi X1-X2 sebesar 0.728 membuat kontribusi keduanya saling berdekatan.
-- **Apakah model berganda layak?** F = 2088 dengan p < 2.2e-16 dan R² = 0.2521. Namun 74,79% variasi total pembayaran masih berada di luar model.
-- **Apakah asumsi regresi terpenuhi?** VIF semua di bawah 2.2, tetapi Shapiro-Wilk dan Breusch-Pagan memberi p < 2.2e-16, sehingga normalitas dan homogenitas varians residual ditolak.
-- **Mengapa mean jauh di atas median?** Mean Rp50.997,58, median Rp21.800, dan maksimum Rp3.076.000. Beberapa transaksi bernilai sangat besar menarik mean ke kanan.
-- **Bolehkah angka prediksi dipakai?** Sebagai ilustrasi model, ya. Skenario 2 memberi Rp39.333,51 dengan interval Rp37.495,79 sampai Rp41.171,23, tetapi interpretasinya tetap dibatasi oleh R² dan hasil uji asumsi.
+- **Mengapa X1 menjadi prediktor utama?** Korelasi Y-X1 sebesar 0,620 dan koefisien X1 sebesar 79,746, jauh di atas koefisien X2 dan X3.
+- **Apakah X2 dan X3 penting?** Korelasi keduanya dengan Y hanya 0,153 dan 0,001. Koefisien X2 sebesar 0,772 dan X3 sebesar -0,953 menaikkan R² dari 0,3846 menjadi 0,4075.
+- **Apakah model berganda layak?** Model signifikan secara keseluruhan dengan R² = 0,4075, sehingga sekitar 59,25% variasi `Lifetime_Value` masih berada di luar model.
+- **Apakah datanya berasal dari Indonesia?** Tidak. Dataset bersifat global dan diambil dari halaman Kaggle yang tercantum pada slide 3.
+- **Bolehkah angka prediksi dipakai?** Sebagai ilustrasi model, ya. Batas interval 95% dan tiga skenario tersaji di `prediksi.csv`, dengan interpretasi yang dibatasi oleh R² dan hasil uji asumsi.
 
 **Catatan demo**
 
 - Jawab dengan menyebut angka terlebih dahulu, lalu artinya.
-- Hindari klaim sebab akibat. Seluruh koefisien dibaca sebagai hubungan dalam data, bukan efek perlakuan.
+- Hindari klaim sebab akibat. Seluruh koefisien dibaca sebagai hubungan dalam data.
 
 ---
 
@@ -240,8 +236,8 @@ Setiap slide memuat isi layar dan catatan demo. Path gambar dihitung relatif dar
 
 - `../output/plots/hist_y.png`
 - `../output/plots/box_y.png`
-- `../output/plots/scatter_qty_y.png`
-- `../output/plots/scatter_diskon_y.png`
-- `../output/plots/scatter_ongkir_y.png`
-- `../output/plots/qq_plot.png`
+- `../output/plots/scatter_purchases_y.png`
+- `../output/plots/scatter_order_value_y.png`
+- `../output/plots/scatter_discount_y.png`
 - `../output/plots/residual_vs_fitted.png`
+- `../output/plots/qq_plot.png`

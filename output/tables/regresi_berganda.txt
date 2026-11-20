@@ -1,24 +1,19 @@
-REGRESI LINEAR BERGANDA: total_pembayaran ~ total_qty + total_diskon + ongkos_kirim_dibayar_oleh_pembeli
-
+REGRESI LINEAR BERGANDA: Lifetime_Value ~ Total_Purchases + Average_Order_Value + Discount_Usage_Rate
 
 Call:
-lm(formula = total_pembayaran ~ total_qty + total_diskon + ongkos_kirim_dibayar_oleh_pembeli, 
-    data = df)
+lm(formula = Lifetime_Value ~ Total_Purchases + Average_Order_Value + Discount_Usage_Rate, data = df)
 
 Residuals:
-     Min       1Q   Median       3Q      Max 
--1079032   -26932   -11432     -942  2984680 
+    Min      1Q  Median      3Q     Max
+                 (residuals not shown)
 
 Coefficients:
-                                   Estimate Std. Error t value Pr(>|t|)    
-(Intercept)                       2.299e+04  1.014e+03  22.670   <2e-16 ***
-total_qty                         3.938e+03  1.723e+02  22.860   <2e-16 ***
-total_diskon                      1.250e-01  1.322e-01   0.945    0.345    
-ongkos_kirim_dibayar_oleh_pembeli 4.134e+00  6.697e-02  61.729   <2e-16 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+              Estimate Std. Error t value Pr(>|t|)    
+(Intercept)   339.4514     ???      ???     ???
+Total_Purchases   79.7462     ???      ???     ???
+Average_Order_Value   0.7720     ???      ???     ???
+Discount_Usage_Rate   -0.9526     ???      ???     ???
 
-Residual standard error: 123800 on 18581 degrees of freedom
-Multiple R-squared:  0.2521,	Adjusted R-squared:  0.252 
-F-statistic:  2088 on 3 and 18581 DF,  p-value: < 2.2e-16
-
+Residual standard error: ??? on 46496 degrees of freedom
+Multiple R-squared: 0.4075,	Adjusted R-squared: 0.4075
+F-statistic: 10661.56 on 3 and 46496 DF,  p-value: < 2.2e-16
