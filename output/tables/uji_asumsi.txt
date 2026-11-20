@@ -1,12 +1,21 @@
 UJI ASUMSI MODEL REGRESI BERGANDA
 
-Multikolinearitas (VIF):
-Total_Purchases: VIF = 999.0000
-Average_Order_Value: VIF = 999.0000
-Discount_Usage_Rate: VIF = 999.0000
+Multikolinearitas dengan VIF:
+    Total_Purchases Average_Order_Value Discount_Usage_Rate 
+           1.001436            1.000021            1.001415 
 
-Normalitas residual (Shapiro-Wilk, sampel acak n = 5000):
-W = ... , p-value < 2.2e-16
+Normalitas residual dengan Shapiro-Wilk, sampel acak n = 5000 :
 
-Heteroskedastisitas (Breusch-Pagan):
-BP = ... , df = 2, p-value < 2.2e-16
+	Shapiro-Wilk normality test
+
+data:  sampel_residu
+W = 0.79227, p-value < 2.2e-16
+
+
+Heteroskedastisitas dengan Breusch-Pagan:
+
+	studentized Breusch-Pagan test
+
+data:  model_berganda
+BP = 17058, df = 3, p-value < 2.2e-16
+

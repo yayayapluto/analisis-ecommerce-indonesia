@@ -17,8 +17,11 @@ bisa diulang dari awal. Angka yang disebut berasal dari berkas output di repo.
 | Variabel terikat | `Y = Lifetime_Value` |
 | Prediktor | `X1 = Total_Purchases`, `X2 = Average_Order_Value`, `X3 = Discount_Usage_Rate` |
 | Baris awal | 50.000 |
+| Baris setelah `complete.cases()` | 46.500 |
+| Baris dibuang karena `NA` | 3.500 |
+| Baris duplikat dibuang | 0 |
 | Baris final | 46.500 |
-| Baris dibuang | 3.500 karena `NA` pada variabel model |
+| Total baris dibuang | 3.500 |
 | Repo publik | `yayayapluto/analisis-perilaku-pelanggan-ecommerce`, branch `main` |
 
 ---
@@ -105,7 +108,7 @@ dengan hasil olahan. Berkas `output/tables/provenance.txt` memuat:
 - jumlah baris dan kolom awal,
 - deskripsi singkat,
 - definisi `Y`, `X1`, `X2`, dan `X3`,
-- jumlah baris final setelah penyaringan.
+- jumlah baris setelah `NA`, duplikat, final, dan total baris dibuang.
 
 `data/README.md` memuat versi ringkas untuk pembaca repo. Keduanya harus
 mengacu pada dataset yang sama dengan CSV di `data/raw/`.
@@ -121,13 +124,18 @@ Script `R/analysis.R` melakukan pra-pengolahan sebelum pemodelan.
    berhenti dengan pesan kolom tidak ditemukan.
 3. Mengonversi keempat kolom model ke numerik. Nilai yang tidak bisa dikonversi
    menjadi `NA`.
-4. Menghitung jumlah `NA` per variabel model.
-5. Memakai `complete.cases()` hanya pada keempat variabel model.
-6. Menyimpan hasil ke `data/processed/customer_behavior_clean.csv`.
+4. Menghitung jumlah `NA` per variabel model dan menyimpan hasil penyaringan
+   `complete.cases()` ke `data_setelah_na`.
+5. Menghitung `baris_na` dari selisih baris awal dan baris setelah penyaringan.
+6. Membuang duplikat dari `data_setelah_na` dengan `!duplicated()`, lalu
+   menghitung `baris_duplikat`, `baris_final`, dan `baris_dibuang`.
+7. Menyimpan hasil akhir ke `data/processed/customer_behavior_clean.csv` dan
+   menulis ketiga jumlah baris ke `output/analisis_log.txt`.
 
-Hasil terverifikasi: 50.000 baris awal, 46.500 baris final, 3.500 baris
-dibuang. Tidak ada filter lain, seperti penghapusan outlier atau pembatasan
-rentang nilai.
+Hasil terverifikasi: 50.000 baris awal, 46.500 baris setelah `NA`, 3.500 baris
+dibuang karena `NA`, 0 baris duplikat, 46.500 baris final, dan 3.500 total
+baris dibuang. Tidak ada filter tambahan lain, seperti penghapusan outlier atau
+pembatasan rentang nilai.
 
 ---
 
@@ -239,7 +247,7 @@ URL repo: https://github.com/yayayapluto/analisis-perilaku-pelanggan-ecommerce
 ## Checklist selesai
 
 - [ ] `data/raw/customer_behavior.csv` ada, berisi 50.000 baris dan 25 kolom.
-- [ ] `data/processed/customer_behavior_clean.csv` ada, berisi 46.500 baris.
+- [ ] `data/processed/customer_behavior_clean.csv` ada, berisi 46.500 baris akhir setelah 3.500 baris `NA` dan 0 duplikat dibuang.
 - [ ] Seluruh berkas di `output/tables/` dan `output/plots/` terbentuk.
 - [ ] `laporan/laporan.pdf` lebih baru daripada `laporan/laporan.Rmd`.
 - [ ] Angka di `README.md`, `RESULT.md`, `laporan/laporan.Rmd`, dan

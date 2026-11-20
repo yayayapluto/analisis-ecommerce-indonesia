@@ -1,19 +1,25 @@
-REGRESI LINEAR BERGANDA: Lifetime_Value ~ Total_Purchases + Average_Order_Value + Discount_Usage_Rate
+REGRESI LINEAR BERGANDA
+Formula: Lifetime_Value ~ Total_Purchases + Average_Order_Value + Discount_Usage_Rate
+
 
 Call:
-lm(formula = Lifetime_Value ~ Total_Purchases + Average_Order_Value + Discount_Usage_Rate, data = df)
+lm(formula = Lifetime_Value ~ Total_Purchases + Average_Order_Value + 
+    Discount_Usage_Rate, data = data_bersih)
 
 Residuals:
-    Min      1Q  Median      3Q     Max
-                 (residuals not shown)
+     Min       1Q   Median       3Q      Max 
+-10170.6   -377.0   -134.3    265.3   6220.4 
 
 Coefficients:
-              Estimate Std. Error t value Pr(>|t|)    
-(Intercept)   339.4514     ???      ???     ???
-Total_Purchases   79.7462     ???      ???     ???
-Average_Order_Value   0.7720     ???      ???     ???
-Discount_Usage_Rate   -0.9526     ???      ???     ???
+                     Estimate Std. Error t value Pr(>|t|)    
+(Intercept)         339.45140    9.45444  35.904  < 2e-16 ***
+Total_Purchases      79.74619    0.45920 173.664  < 2e-16 ***
+Average_Order_Value   0.77198    0.01841  41.931  < 2e-16 ***
+Discount_Usage_Rate  -0.95264    0.15144  -6.291 3.19e-10 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: ??? on 46496 degrees of freedom
-Multiple R-squared: 0.4075,	Adjusted R-squared: 0.4075
-F-statistic: 10661.56 on 3 and 46496 DF,  p-value: < 2.2e-16
+Residual standard error: 697.5 on 46496 degrees of freedom
+Multiple R-squared:  0.4075,	Adjusted R-squared:  0.4075 
+F-statistic: 1.066e+04 on 3 and 46496 DF,  p-value: < 2.2e-16
+

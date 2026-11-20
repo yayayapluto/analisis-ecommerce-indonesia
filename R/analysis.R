@@ -55,14 +55,23 @@ cat("\nJumlah NA pada variabel model sebelum penyaringan:\n")
 print(na_model)
 
 baris_lengkap <- stats::complete.cases(data_mentah[, kolom_model, drop = FALSE])
-data_bersih <- data_mentah[baris_lengkap, , drop = FALSE]
+data_setelah_na <- data_mentah[baris_lengkap, , drop = FALSE]
+rownames(data_setelah_na) <- NULL
+
+baris_na <- baris_awal - nrow(data_setelah_na)
+cat("\nBaris setelah complete.cases:", nrow(data_setelah_na), "\n")
+cat("Baris dibuang karena NA pada variabel model:", baris_na, "\n")
+
+baris_duplikat <- sum(duplicated(data_setelah_na))
+data_bersih <- data_setelah_na[!duplicated(data_setelah_na), , drop = FALSE]
 rownames(data_bersih) <- NULL
 
 baris_final <- nrow(data_bersih)
 baris_dibuang <- baris_awal - baris_final
 
-cat("\nBaris final:", baris_final, "\n")
-cat("Baris dibuang karena NA pada variabel model:", baris_dibuang, "\n")
+cat("Baris duplikat dibuang:", baris_duplikat, "\n")
+cat("Baris final:", baris_final, "\n")
+cat("Total baris dibuang:", baris_dibuang, "\n")
 
 if (baris_final == 0) {
   stop("Tidak ada baris lengkap pada variabel model.")
@@ -408,8 +417,11 @@ cat("Tersimpan: output/plots/qq_plot.png\n")
 
 cat("\nRingkasan akhir\n")
 cat("Baris awal:", baris_awal, "\n")
+cat("Baris setelah complete.cases:", nrow(data_setelah_na), "\n")
+cat("Baris dibuang karena NA:", baris_na, "\n")
+cat("Baris duplikat dibuang:", baris_duplikat, "\n")
 cat("Baris final:", baris_final, "\n")
-cat("Baris dibuang:", baris_dibuang, "\n")
+cat("Total baris dibuang:", baris_dibuang, "\n")
 cat(sprintf("R-squared model berganda: %.6f\n", r2_berganda))
 cat("Analisis selesai.\n")
 
