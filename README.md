@@ -55,6 +55,7 @@ D:/Kuliah/statistik/projek_uas/
 │   └─ slide.md
 │
 ├─ RESULT.md                                   # Ringkasan hasil dan visualisasi
+├─ projek_uas.Rproj                            # Berkas proyek RStudio
 └─ README.md                                   # Dokumen ini
 ```
 
@@ -63,6 +64,7 @@ D:/Kuliah/statistik/projek_uas/
 ## 2. Kebutuhan Sistem
 
 - **R** versi 4.3 atau lebih tinggi
+- **RStudio** (untuk alur klik di bagian 4.1)
 - **Paket R**: `ggplot2`, `car`, `lmtest`, `knitr`, `rmarkdown`
 - **Python** (opsional) untuk verifikasi: `pandas`, `numpy`, `scipy`, `statsmodels`
 - **Git** untuk kontrol versi (tidak wajib)
@@ -94,21 +96,51 @@ D:/Kuliah/statistik/projek_uas/
 
 ## 4. Cara Menjalankan Ulang
 
+### 4.1 Membuka proyek di RStudio
+
+Langkah ini mengasumsikan R, RStudio, dan Git sudah terpasang. Proyek dibuka
+lewat berkas `.Rproj` supaya direktori kerja RStudio langsung berada di root
+proyek. Tanpa berkas itu, path relatif seperti `data/raw/customer_behavior.csv`
+tidak ditemukan.
+
+1. Kloning repositori lewat terminal atau Git Bash:
+
+   ```bash
+   git clone https://github.com/yayayapluto/analisis-perilaku-pelanggan-ecommerce.git
+   cd analisis-perilaku-pelanggan-ecommerce
+   ```
+
+2. Buka RStudio. Pilih **File > Open Project...**, arahkan ke folder
+   `analisis-perilaku-pelanggan-ecommerce`, lalu pilih `projek_uas.Rproj`.
+   RStudio membuka proyek dengan direktori kerja di root proyek.
+
+3. Di panel **Console**, jalankan instal paket sekali saja:
+
+   ```r
+   install.packages(c("ggplot2", "car", "lmtest", "knitr", "rmarkdown"))
+   ```
+
+4. Buka `R/analysis.R` dari panel **Files**. Klik **Source** di kanan atas
+   editor. Script membaca CSV mentah, menulis tabel dan plot ke `output/`, lalu
+   mencetak `Analisis selesai.` di Console.
+
+5. Buka `laporan/laporan.Rmd`, lalu klik **Knit**. RStudio menjalankan chunk,
+   menyusun `laporan.pdf`, dan menyimpannya di folder `laporan/`.
+
+6. Periksa `RESULT.md` dan `output/tables/`. Angka di laporan dan slide berasal
+   dari berkas output yang dibuat pada langkah 4.
+
+### 4.2 Menjalankan lewat terminal
+
+Jika RStudio tidak dipakai, jalankan dari root proyek:
+
 ```bash
-# 1. Pastikan R terinstal dan paket-paket dibutuhkan terinstall
-R --version
-
-# 2. Install paket R yang dibutuhkan (jika belum ada)
-install.packages(c("ggplot2", "car", "lmtest", "knitr", "rmarkdown"))
-
-# 3. Jalankan script analisis
 Rscript R/analysis.R
-
-# 4. Generate laporan Rmd
 Rscript -e "rmarkdown::render('laporan/laporan.Rmd')"
 ```
 
-Setelah langkah-langkah di atas, berkas output di `output/` akan diperbarui dan plot akan tersimpan di `output/plots/`.
+Setelah itu, berkas output di `output/` diperbarui dan plot tersimpan di
+`output/plots/`.
 
 ---
 
@@ -188,7 +220,7 @@ Jika kendala lainnya, cek log `output/analisis_log.txt` untuk pesan error R dan 
 
 - `dhairyajeetsingh`, *Ecommerce Customer Behavior Dataset*, Kaggle, 2025. https://www.kaggle.com/datasets/dhairyajeetsingh/ecommerce-customer-behavior-dataset
 - Kontrak proyek: variabel model, penghapusan NA, korelasi, dan hasil regresi mengikuti rancangan yang ditetapkan pada awal pengerjaan.
-- Metodologi analisis regresi linier sederhana dan berganda memakai paket `stats` bawaan R.
+- Metodologi analisis regresi linear sederhana dan berganda memakai paket `stats` bawaan R.
 
 --- 
 
