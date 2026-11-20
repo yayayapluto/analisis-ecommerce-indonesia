@@ -16,7 +16,7 @@ D:/Kuliah/statistik/projek_uas/
 │   ├─ raw/
 │   │   └─ customer_behavior.csv               # 50.000 baris, 25 kolom
 │   └─ processed/
-│       └─ customer_behavior_clean.csv         # 46.500 baris setelah NA dibuang
+│       └─ customer_behavior_clean.csv         # 46.500 baris setelah NA dan duplikat dibuang
 │
 ├─ assets/                                     # Salinan plot untuk RESULT.md
 │   ├─ g1_distribusi_lifetime_value.png
@@ -82,7 +82,8 @@ D:/Kuliah/statistik/projek_uas/
    - Baca CSV.  
    - Konversi empat kolom variabel model ke numerik.  
    - Hapus baris yang memiliki `NA` pada keempat variabel model (`Y`, `X1`, `X2`, `X3`).  
-   - Simpan hasil ke `data/processed/customer_behavior_clean.csv` (46.500 baris).  
+   - Buang baris duplikat dari hasil penyaringan `NA` dengan `!duplicated()`.  
+   - Simpan hasil ke `data/processed/customer_behavior_clean.csv` (46.500 baris, 0 duplikat dibuang).  
 3. **Jalankan script R** `R/analysis.R` yang menghasilkan:  
    - Tabel statistik deskriptif.  
    - Matriks korelasi.  
@@ -154,7 +155,7 @@ Script memakai base R untuk membaca dan menulis CSV, `ggplot2` untuk plot,
 
 1. Membaca `data/raw/customer_behavior.csv`.
 2. Mengonversi empat kolom variabel model ke numerik.
-3. Membuang baris dengan `NA` pada keempat variabel model.
+3. Membuang baris dengan `NA` pada keempat variabel model, lalu membuang baris duplikat dengan `!duplicated()`.
 4. Menghitung statistik deskriptif dan matriks korelasi.
 5. Menaksir model `Y ~ X1` dan `Y ~ X1 + X2 + X3`.
 6. Menjalankan VIF, Shapiro-Wilk, dan Breusch-Pagan.
@@ -177,8 +178,8 @@ membaca berkas output tersebut, sehingga tidak ada angka yang diisi manual.
 | `output/tables/uji_asumsi.txt` | Hasil VIF, Shapiro-Wilk, dan Breusch-Pagan dari R. |
 | `output/tables/prediksi.csv` | Skenario per baris: total_purchases, average_order_value, discount_usage_rate, prediksi, batas_bawah_95, batas_atas_95. |
 | `output/tables/provenance.txt` | Sumber, lisensi, dan metadata dataset. |
-| `output/analisis_log.txt` | Log lengkap dari eksekusi script R (termasuk baris awal/akhir, korelasi, koefisien model). |
-| `data/processed/customer_behavior_clean.csv` | Data yang sudah dibersihkan (46.500 baris, 4 variabel model numerik). |
+| `output/analisis_log.txt` | Log lengkap dari eksekusi script R (termasuk jumlah baris awal, NA, duplikat, akhir, korelasi, dan koefisien model). |
+| `data/processed/customer_behavior_clean.csv` | Data yang sudah dibersihkan (46.500 baris, 4 variabel model numerik, tanpa duplikat). |
 | `output/plots/*.png` | Tujuh plot wajib (lihat section 5). |
 
 ---
@@ -191,7 +192,7 @@ membaca berkas output tersebut, sehingga tidak ada angka yang diisi manual.
   - `X1` = Total_Purchases (total pembelian).
   - `X2` = Average_Order_Value (rata-rata nilai per order).
   - `X3` = Discount_Usage_Rate (tingkat penggunaan diskon).
-- **Penghapusan baris**: hanya hapus baris dengan `NA` pada keempat variabel model `Y`, `X1`, `X2`, `X3`. Filter lain tidak diterapkan.
+- **Penghapusan baris**: 3.500 baris dibuang karena `NA` pada keempat variabel model `Y`, `X1`, `X2`, `X3`. Pemeriksaan duplikat setelah itu membuang 0 baris. Total 3.500 baris dibuang sehingga tersisa 46.500 baris. Tidak ada filter outlier atau kategori lain.
 - **Korelasi kunci** (nilai yang muncul di output):
   - kor(Y, X1) = 0,620
   - kor(Y, X2) = 0,153
@@ -211,7 +212,7 @@ membaca berkas output tersebut, sehingga tidak ada angka yang diisi manual.
 | **Gagal membaca CSV** | Pastikan file `data/raw/customer_behavior.csv` ada dan tidak rusak. Coba baca dengan `read.csv()` langsung dari konsol R untuk melihat pesan error. |
 | **Terlalu banyak NA** | Cek kolom yang menyebabkan NA; pastikan konversi ke numerik (`as.numeric`) dilakukan sebelum filter. |
 | **Plot tidak muncul** | Pastikan paket `ggplot2` terinstall dan versi R cukup baru. Cek direktori kerja: plot disimpan relatif terhadap `getwd()`. |
-| **Output tabel kosong** | Periksa apakah langkah filter NA sukses menghasilkan 46.500 baris. Jika baris lebih sedikit, periksa kembali kolom NA. |
+| **Output tabel kosong** | Periksa log untuk jumlah baris setelah `NA`, duplikat, dan baris final. Angka yang benar: 46.500 setelah `NA`, 0 duplikat, 46.500 final. |
 | **Laporan Rmd error** | Jalankan `rmarkdown::render()` dari direktori project dan lihat pesan error di konsol. Umumnya disebabkan oleh path file yang salah. |
 | **Peringatan kontras warna** | Warna plot dihasilkan default ggplot2; jika diperlukan penyesuaian kontras, sesuaikan di dalam kode plot sebelum `ggsave`. |
 

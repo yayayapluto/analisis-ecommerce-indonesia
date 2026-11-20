@@ -57,9 +57,9 @@ Setiap slide memuat isi layar dan catatan demo. Path gambar dihitung relatif dar
 **Isi slide**
 
 - Dataset CSV dibaca lalu empat variabel model dikonversi ke numerik.
-- Baris dengan NA pada `Lifetime_Value`, `Total_Purchases`, `Average_Order_Value`, atau `Discount_Usage_Rate` dibuang.
-- Tidak ada filter lain, sehingga tidak ada penghapusan duplikat, outlier, atau kategori tertentu.
-- Baris awal 50.000, baris final 46.500, baris dibuang 3.500.
+- Baris dengan NA pada `Lifetime_Value`, `Total_Purchases`, `Average_Order_Value`, atau `Discount_Usage_Rate` dibuang, menyisakan 46.500 baris.
+- Baris duplikat dari hasil penyaringan dibuang dengan `!duplicated()`; 0 baris duplikat ditemukan.
+- Baris awal 50.000, 3.500 dibuang karena NA, 0 duplikat, baris final 46.500, total dibuang 3.500.
 
 **Catatan demo**
 

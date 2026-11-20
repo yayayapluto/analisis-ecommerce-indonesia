@@ -1,17 +1,22 @@
-REGRESI LINEAR SEDERHANA: Lifetime_Value ~ Total_Purchases
+REGRESI LINEAR SEDERHANA
+Formula: Lifetime_Value ~ Total_Purchases
+
 
 Call:
-lm(formula = Lifetime_Value ~ Total_Purchases, data = df)
+lm(formula = Lifetime_Value ~ Total_Purchases, data = data_bersih)
 
 Residuals:
-    Min      1Q  Median      3Q     Max
-                 (residuals not shown)
+     Min       1Q   Median       3Q      Max 
+-10212.6   -402.3   -137.5    282.6   6360.2 
 
 Coefficients:
-            Estimate Std. Error t value Pr(>|t|)    
-(Intercept)   394.7635     ???      ???     ???
-Total_Purchases   79.7254     ???      ???     ???
+                Estimate Std. Error t value Pr(>|t|)    
+(Intercept)     394.7635     6.9673   56.66   <2e-16 ***
+Total_Purchases  79.7254     0.4676  170.48   <2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: ??? on 46498 degrees of freedom
-Multiple R-squared: 0.3846,	Adjusted R-squared: 0.3846
-F-statistic: 10661.56 on 1 and 46499 DF,  p-value: < 2.2e-16
+Residual standard error: 710.8 on 46498 degrees of freedom
+Multiple R-squared:  0.3846,	Adjusted R-squared:  0.3846 
+F-statistic: 2.906e+04 on 1 and 46498 DF,  p-value: < 2.2e-16
+

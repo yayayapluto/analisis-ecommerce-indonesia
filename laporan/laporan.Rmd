@@ -25,6 +25,8 @@ url_sumber <- sub("^URL Kaggle: +", "", ambil_baris("^URL Kaggle", prov_raw))
 lisensi <- sub("^Lisensi: +", "", ambil_baris("^Lisensi", prov_raw))
 tanggal_verifikasi <- sub("^Tanggal pembaruan: +", "", ambil_baris("^Tanggal pembaruan", prov_raw))
 baris_awal <- as.numeric(sub("^Baris awal: +", "", ambil_baris("^Baris awal:", log_raw)))
+baris_na <- as.numeric(sub("^Baris dibuang karena NA: +", "", ambil_baris("^Baris dibuang karena NA:", log_raw)))
+baris_duplikat <- as.numeric(sub("^Baris duplikat dibuang: +", "", ambil_baris("^Baris duplikat dibuang:", log_raw)))
 baris_final <- nrow(df)
 baris_dibuang <- baris_awal - baris_final
 
@@ -161,13 +163,15 @@ regresi terpenuhi pada data ini.
 
 Data diperoleh dari `r url_sumber`. Metadata menyebut lisensi `r lisensi` dan
 tanggal pembaruan `r tanggal_verifikasi`. Dataset awal berisi `r fmt(baris_awal)`
-baris dan 25 kolom. Empat variabel model dikonversi ke numerik, lalu baris yang
-memiliki nilai kosong pada salah satu variabel model dibuang. Hasilnya tersisa
-`r fmt(baris_final)` baris, sehingga `r fmt(baris_dibuang)` baris dikeluarkan.
-Tidak ada filter lain yang diterapkan.
+baris dan 25 kolom. Empat variabel model dikonversi ke numerik. Penyaringan `NA`
+membuang `r fmt(baris_na)` baris dan menyisakan `r fmt(baris_awal - baris_na)`
+baris. Pemeriksaan duplikat setelah itu membuang `r fmt(baris_duplikat)` baris,
+sehingga baris final berjumlah `r fmt(baris_final)` baris dengan total
+`r fmt(baris_dibuang)` baris dikeluarkan. Tidak ada filter outlier atau kategori
+lain yang diterapkan.
 
 `Total_Purchases` memuat nilai minimum negatif. Nilai tersebut tetap
-dipertahankan karena aturan pra-pengolahan hanya membuang baris dengan `NA`.
+dipertahankan karena dua aturan pra-pengolahan hanya menyaring `NA` dan duplikat.
 Keputusan ini menjaga jumlah sampel tetap besar, tetapi perlu dicatat sebagai
 keterbatasan karena nilai negatif tidak memiliki arti jumlah pembelian yang
 wajar.

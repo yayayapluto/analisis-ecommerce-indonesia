@@ -3,9 +3,10 @@
 Halaman ini merangkum hasil pipeline `R/analysis.R`. Sumber datanya adalah
 `dhairyajeetsingh/ecommerce-customer-behavior-dataset` dari Kaggle. Dataset ini
 bersifat global dan bukan data transaksi produksi Indonesia. Pipeline membaca
-50.000 baris awal dengan 25 kolom, lalu menyisakan 46.500 baris setelah baris
-dengan nilai kosong pada empat variabel model dibuang. Seluruh nilai memakai
-satuan dataset tanpa simbol mata uang.
+50.000 baris awal dengan 25 kolom. Penyaringan `NA` pada empat variabel model
+menyisakan 46.500 baris. Pemeriksaan duplikat setelah itu membuang 0 baris,
+sehingga baris final tetap 46.500. Seluruh nilai memakai satuan dataset tanpa
+simbol mata uang.
 
 Variabel yang dianalisis:
 
@@ -19,8 +20,8 @@ Variabel yang dianalisis:
 | Tahap | Hasil |
 |---|---|
 | Sumber data | Kaggle `dhairyajeetsingh/ecommerce-customer-behavior-dataset`, 50.000 baris, 25 kolom |
-| Pra-pengolahan | Konversi empat variabel model ke numerik, lalu `complete.cases()` |
-| Baris akhir | 46.500 baris, 3.500 baris dibuang karena nilai kosong pada variabel model |
+| Pra-pengolahan | Konversi empat variabel model ke numerik, `complete.cases()`, lalu pembuangan duplikat dengan `!duplicated()` |
+| Baris akhir | 46.500 baris, 3.500 dibuang karena `NA`, 0 duplikat dibuang, total 3.500 baris dibuang |
 | Statistik deskriptif | Rataan, median, modus, varians, simpangan baku, minimum, kuartil, maksimum |
 | Korelasi | Matriks Pearson untuk empat variabel model |
 | Regresi | Model sederhana `Y ~ X1` dan model berganda `Y ~ X1 + X2 + X3` |
@@ -99,8 +100,8 @@ Shapiro-Wilk atas 5.000 residual acak menghasilkan `W = 0,79227` dan
 | `Discount_Usage_Rate` | 42,00 | 40,2 | 21,37 | 0,24 | 25,3 | 57 | 116,64 |
 
 `Total_Purchases` memiliki nilai minimum negatif, yaitu -13. Nilai ini tetap
-dipertahankan karena aturan pra-pengolahan hanya membuang baris dengan `NA`.
-Tidak ada filter tambahan yang diterapkan.
+dipertahankan karena dua aturan pra-pengolahan hanya menyaring `NA` dan duplikat.
+Tidak ada filter outlier atau kategori lain yang diterapkan.
 
 ## 4. Korelasi Pearson
 

@@ -7,4 +7,8 @@ Jumlah baris awal: 50.000
 Jumlah kolom: 25
 Deskripsi: Dataset global customer engagement/churn dengan 25 fitur, bukan data transaksi produksi riil Indonesia.
 Variabel model: Y = Lifetime_Value; X1 = Total_Purchases; X2 = Average_Order_Value; X3 = Discount_Usage_Rate
-Jumlah baris final setelah pengurangan NA pada keempat variabel model: 46.500
+Jumlah baris setelah complete.cases: 46.500
+Jumlah baris dibuang karena NA: 3.500
+Jumlah baris duplikat dibuang: 0
+Jumlah baris final: 46.500
+Total baris dibuang: 3.500

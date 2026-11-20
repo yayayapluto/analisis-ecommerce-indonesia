@@ -9,8 +9,11 @@ Jumlah NA pada variabel model sebelum penyaringan:
      Lifetime_Value     Total_Purchases Average_Order_Value Discount_Usage_Rate 
                   0                   0                   0                3500 
 
-Baris final: 46500 
+Baris setelah complete.cases: 46500 
 Baris dibuang karena NA pada variabel model: 3500 
+Baris duplikat dibuang: 0 
+Baris final: 46500 
+Total baris dibuang: 3500 
 Tersimpan: data/processed/customer_behavior_clean.csv
 
 Statistika deskriptif
@@ -140,7 +143,10 @@ Tersimpan: output/plots/qq_plot.png
 
 Ringkasan akhir
 Baris awal: 50000 
+Baris setelah complete.cases: 46500 
+Baris dibuang karena NA: 3500 
+Baris duplikat dibuang: 0 
 Baris final: 46500 
-Baris dibuang: 3500 
+Total baris dibuang: 3500 
 R-squared model berganda: 0.407548
 Analisis selesai.
