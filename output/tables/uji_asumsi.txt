@@ -1,0 +1,23 @@
+UJI ASUMSI MODEL REGRESI BERGANDA
+
+Multikolinearitas (VIF):
+                        total_qty                      total_diskon 
+                         2.188921                          2.125484 
+ongkos_kirim_dibayar_oleh_pembeli 
+                         1.056990 
+
+Normalitas residual (Shapiro-Wilk, sampel acak n = 5000 ):
+
+	Shapiro-Wilk normality test
+
+data:  sample(resid_model, ukuran_sampel)
+W = 0.27163, p-value < 2.2e-16
+
+
+Heteroskedastisitas (Breusch-Pagan):
+
+	studentized Breusch-Pagan test
+
+data:  model_berganda
+BP = 218.91, df = 3, p-value < 2.2e-16
+

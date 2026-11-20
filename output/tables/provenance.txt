@@ -1,0 +1,64 @@
+VERIFIKASI PROVENANSI DATASET
+=============================
+
+Nama dataset        : Indonesia E-Commerce Sales
+Pemilik/pembuat     : zkyfauzi / ZkyFauzi
+URL resmi           : https://www.kaggle.com/datasets/zkyfauzi/indonesia-ecommerce-sales
+Slug API            : zkyfauzi/indonesia-ecommerce-sales
+Lisensi             : CC0: Public Domain
+Ukuran              : 3.620.891 byte (field totalBytes pada endpoint view)
+Jumlah file         : 1 file, yaitu indonesia_ecommerce_sales_challenging.csv
+                      (3.620.891 byte; dikonfirmasi dari endpoint /api/v1/datasets/list/zkyfauzi/indonesia-ecommerce-sales)
+Versi               : 1 (Initial release)
+Tanggal pembaruan   : 2026-03-26T14:31:04.503Z (field lastUpdated pada metadata Kaggle)
+Tanggal verifikasi  : 2026-11-20
+
+Sumber metadata
+---------------
+1. GET https://www.kaggle.com/api/v1/datasets/view/zkyfauzi/indonesia-ecommerce-sales
+   -> Judul "Indonesia E-Commerce Sales", lisensi "CC0: Public Domain",
+      totalBytes 3620891, lastUpdated 2026-03-26T14:31:04.503Z,
+      currentVersionNumber 1.
+2. GET https://www.kaggle.com/api/v1/datasets/list?search=indonesia%20ecommerce%20sales
+   -> Slug zkyfauzi/indonesia-ecommerce-sales muncul sebagai hasil pertama dari 4 hasil;
+      URL dan lisensi sesuai dengan endpoint view.
+3. GET https://www.kaggle.com/api/v1/datasets/list/zkyfauzi/indonesia-ecommerce-sales
+   -> Daftar berkas memuat tepat satu berkas, indonesia_ecommerce_sales_challenging.csv,
+      dengan totalBytes 3620891.
+
+Deskripsi singkat (dari metadata Kaggle)
+----------------------------------------
+"Dataset ini adalah data latihan yang dibuat untuk belajar Data Preprocessing.
+Tujuan utamanya: memberi tantangan yang realistis (missing values, outlier ringan,
+inkonsistensi kategori, dan format tanggal campuran)."
+Dataset ini ditujukan untuk pembelajaran, bukan data transaksi produksi real-time.
+Deskripsi menyebut struktur 18.868 baris, 19 kolom, delimiter ';', encoding UTF-8.
+
+Hitungan mandiri pada berkas lokal
+----------------------------------
+Berkas     : data/raw/ec_indonesia.csv
+Jumlah baris data: 18.868 (tidak termasuk baris header; dihitung dengan parser CSV
+           Python csv.reader pada delimiter ';')
+Jumlah kolom     : 19
+Catatan    : endpoint view tidak mengembalikan daftar berkas (files = []), sehingga
+           jumlah file diambil dari endpoint daftar berkas Kaggle di atas. Endpoint
+           list pencarian juga menampilkan totalBytes 468.847; angka pada bagian
+           "Ukuran" di atas mengikuti nilai totalBytes pada endpoint view dan daftar
+           berkas, yaitu 3.620.891 byte.
+
+Kolom yang dipakai dalam analisis
+---------------------------------
+Y  = Total Pembayaran
+X1 = total_qty
+X2 = Total Diskon
+X3 = Ongkos Kirim Dibayar oleh Pembeli
+
+Nama keempat kolom tersebut sama persis dengan header pada data/raw/ec_indonesia.csv.
+
+Kalimat siap pakai untuk laporan
+--------------------------------
+"Data diperoleh dari dataset Indonesia E-Commerce Sales yang dipublikasikan oleh
+ZkyFauzi di Kaggle (https://www.kaggle.com/datasets/zkyfauzi/indonesia-ecommerce-sales)
+dengan lisensi CC0: Public Domain. Dataset ini terdiri dari 18.868 baris dan 19 kolom;
+berkas mentahnya bernama indonesia_ecommerce_sales_challenging.csv dan disimpan dalam
+proyek ini sebagai data/raw/ec_indonesia.csv."

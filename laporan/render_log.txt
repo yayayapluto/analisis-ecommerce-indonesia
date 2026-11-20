@@ -1,0 +1,35 @@
+
+
+processing file: laporan.Rmd
+1/27                   
+2/27 [setup]           
+3/27                   
+4/27 [unnamed-chunk-1] 
+5/27                   
+6/27 [unnamed-chunk-2] 
+7/27                   
+8/27 [unnamed-chunk-3] 
+9/27                   
+10/27 [unnamed-chunk-4] 
+11/27                   
+12/27 [unnamed-chunk-5] 
+13/27                   
+14/27 [unnamed-chunk-6] 
+15/27                   
+16/27 [unnamed-chunk-7] 
+17/27                   
+18/27 [unnamed-chunk-8] 
+19/27                   
+20/27 [unnamed-chunk-9] 
+21/27                   
+22/27 [unnamed-chunk-10]
+23/27                   
+24/27 [unnamed-chunk-11]
+25/27                   
+26/27 [unnamed-chunk-12]
+27/27                   
+output file: laporan.knit.md
+
+"C:/PROGRA~1/Pandoc/pandoc" +RTS -K512m -RTS laporan.knit.md --to latex --from markdown+autolink_bare_uris+tex_math_single_backslash --output laporan.tex --lua-filter "C:\Users\mfarr\AppData\Local\R\win-library\4.6\rmarkdown\rmarkdown\lua\pagebreak.lua" --lua-filter "C:\Users\mfarr\AppData\Local\R\win-library\4.6\rmarkdown\rmarkdown\lua\latex-div.lua" --embed-resources --standalone --syntax-highlighting tango --pdf-engine pdflatex --variable graphics --lua-filter "C:\Users\mfarr\AppData\Local\R\win-library\4.6\rmarkdown\rmarkdown\lua\extract-data-uri.lua" --include-in-header "C:\Users\mfarr\AppData\Local\Temp\RtmpY7L3Mg\rmarkdown-str64f832af354e.html" 
+
+Output created: laporan.pdf

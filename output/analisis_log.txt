@@ -1,0 +1,193 @@
+Analisis regresi e-commerce Indonesia
+Sumber: data/raw/ec_indonesia.csv
+
+Baris awal: 18868 
+Kolom awal: 19 
+
+Rename: Total Diskon -> total_diskon 
+Rename: Ongkos Kirim Dibayar oleh Pembeli -> ongkos_kirim_dibayar_oleh_pembeli 
+Rename: Total Pembayaran -> total_pembayaran 
+Rename: Waktu Pesanan Dibuat -> waktu_pesan_dibuat 
+Rename: Perkiraan Ongkos Kirim -> perkiraan_ongkos_kirim 
+
+Struktur data setelah rename dan konversi tipe:
+'data.frame':	18868 obs. of  19 variables:
+ $ order_id                          : chr  "ORD_0000001" "ORD_0000002" "ORD_0000003" "ORD_0000004" ...
+ $ total_qty                         : num  2 1 1 2 3 2 1 1 1 6 ...
+ $ total_weight_gr                   : int  2000 500 500 400 3600 1000 1700 500 500 12900 ...
+ $ total_returned_qty                : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ total_diskon                      : num  0 0 0 0 0 0 0 0 0 0 ...
+ $ product_categories                : chr  "Celengan" "Celengan" "Celengan" "Mangkok Sambal / Saus" ...
+ $ num_product_categories            : int  1 1 1 1 3 1 1 1 1 3 ...
+ $ Status Pesanan                    : chr  "Selesai" "Selesai" "Selesai" "Selesai" ...
+ $ Alasan Pembatalan                 : chr  "Tidak dibatalkan" "Tidak dibatalkan" "Tidak dibatalkan" "Tidak dibatalkan" ...
+ $ Opsi Pengiriman                   : chr  "Reguler (Cashless)-SPX Standard" "Hemat Kargo-SPX Hemat" "Hemat Kargo-SPX Hemat" "Hemat Kargo-SPX Hemat" ...
+ $ Metode Pembayaran                 : chr  "Saldo ShopeePay" "COD (Bayar di Tempat)" "SeaBank Bayar Instan" "COD (Bayar di Tempat)" ...
+ $ Kota/Kabupaten                    : chr  "KOTA SERANG" "KOTA SEMARANG" "KAB. BOGOR" "KOTA JAMBI" ...
+ $ Provinsi                          : chr  "BANTEN" "JAWA TENGAH" "JAWA BARAT" "JAMBI" ...
+ $ ongkos_kirim_dibayar_oleh_pembeli : num  0 0 0 0 0 0 0 0 0 13000 ...
+ $ Estimasi Potongan Biaya Pengiriman: int  10000 14500 8000 20000 0 10000 0 8000 0 20000 ...
+ $ total_pembayaran                  : num  38300 18576 7069 32200 0 ...
+ $ perkiraan_ongkos_kirim            : int  10000 14500 8000 20000 8000 10000 16000 8000 16500 33000 ...
+ $ waktu_pesan_dibuat                : chr  "2024-04-01 00:15" "2024-04-01 01:47" "2024-04-01 04:25" "2024-04-01 04:41" ...
+ $ order_date                        : chr  "2024-04-01" "2024-04-01" "2024-04-01" "2024-04-01" ...
+
+Jumlah NA per kolom:
+                              kolom n_na
+                           order_id    0
+                          total_qty  283
+                    total_weight_gr    0
+                 total_returned_qty    0
+                       total_diskon    0
+                 product_categories    0
+             num_product_categories    0
+                     Status Pesanan    0
+                  Alasan Pembatalan    0
+                    Opsi Pengiriman    0
+                  Metode Pembayaran  283
+                     Kota/Kabupaten    0
+                           Provinsi    0
+  ongkos_kirim_dibayar_oleh_pembeli    0
+ Estimasi Potongan Biaya Pengiriman    0
+                   total_pembayaran    0
+             perkiraan_ongkos_kirim    0
+                 waktu_pesan_dibuat    0
+                         order_date  188
+
+Baris duplikat: 0 
+Baris setelah hapus duplikat: 18868 
+Baris dibuang karena NA pada variabel model: 283 
+Jumlah baris final: 18585 
+Tersimpan: data/processed/ec_indonesia_clean.csv
+
+=== STATISTIKA DESKRIPTIF ===
+                          variabel     n      mean median modus      varians
+                  total_pembayaran 18585 50997.575  21800     0 2.048908e+10
+                         total_qty 18585     2.566      1     1 6.083500e+01
+                      total_diskon 18585   411.019      0     0 1.002469e+08
+ ongkos_kirim_dibayar_oleh_pembeli 18585  4317.501      0     0 1.943582e+08
+        sd min    q1    q2    q3     max
+ 143140.09   0 13520 21800 42288 3076000
+      7.80   1     1     1     2     256
+  10012.34   0     0     0     0  700000
+  13941.24   0     0     0  3000  584000
+Tersimpan: output/tables/statistik_deskriptif.csv
+
+=== KORELASI PEARSON ===
+                                  total_pembayaran total_qty total_diskon
+total_pembayaran                            1.0000    0.3143       0.2292
+total_qty                                   0.3143    1.0000       0.7276
+total_diskon                                0.2292    0.7276       1.0000
+ongkos_kirim_dibayar_oleh_pembeli           0.4538    0.2318       0.1597
+                                  ongkos_kirim_dibayar_oleh_pembeli
+total_pembayaran                                             0.4538
+total_qty                                                    0.2318
+total_diskon                                                 0.1597
+ongkos_kirim_dibayar_oleh_pembeli                            1.0000
+Tersimpan: output/tables/korelasi.csv
+
+=== SCATTER PLOT ===
+Tersimpan: output/plots/scatter_qty_y.png
+Tersimpan: output/plots/scatter_diskon_y.png
+Tersimpan: output/plots/scatter_ongkir_y.png
+
+=== REGRESI LINEAR SEDERHANA ===
+
+Call:
+lm(formula = total_pembayaran ~ total_qty, data = df)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-1512663   -30466   -22234    -6683  3028266 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  36198.7     1049.4   34.50   <2e-16 ***
+total_qty     5767.4      127.8   45.13   <2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 135900 on 18583 degrees of freedom
+Multiple R-squared:  0.09876,	Adjusted R-squared:  0.09872 
+F-statistic:  2036 on 1 and 18583 DF,  p-value: < 2.2e-16
+
+
+Tersimpan: output/tables/regresi_sederhana.txt
+
+=== REGRESI LINEAR BERGANDA ===
+
+Call:
+lm(formula = total_pembayaran ~ total_qty + total_diskon + ongkos_kirim_dibayar_oleh_pembeli, 
+    data = df)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-1079032   -26932   -11432     -942  2984680 
+
+Coefficients:
+                                   Estimate Std. Error t value Pr(>|t|)    
+(Intercept)                       2.299e+04  1.014e+03  22.670   <2e-16 ***
+total_qty                         3.938e+03  1.723e+02  22.860   <2e-16 ***
+total_diskon                      1.250e-01  1.322e-01   0.945    0.345    
+ongkos_kirim_dibayar_oleh_pembeli 4.134e+00  6.697e-02  61.729   <2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 123800 on 18581 degrees of freedom
+Multiple R-squared:  0.2521,	Adjusted R-squared:  0.252 
+F-statistic:  2088 on 3 and 18581 DF,  p-value: < 2.2e-16
+
+
+Tersimpan: output/tables/regresi_berganda.txt
+R-squared model berganda: 0.252134
+R-squared adjusted model berganda: 0.252013
+
+=== UJI ASUMSI ===
+Multikolinearitas (VIF):
+                        total_qty                      total_diskon 
+                         2.188921                          2.125484 
+ongkos_kirim_dibayar_oleh_pembeli 
+                         1.056990 
+
+Normalitas residual (Shapiro-Wilk pada sampel acak):
+Ukuran sampel: 5000 
+
+	Shapiro-Wilk normality test
+
+data:  sample(resid_model, ukuran_sampel)
+W = 0.27163, p-value < 2.2e-16
+
+
+Heteroskedastisitas (Breusch-Pagan):
+
+	studentized Breusch-Pagan test
+
+data:  model_berganda
+BP = 218.91, df = 3, p-value < 2.2e-16
+
+
+Tersimpan: output/tables/uji_asumsi.txt
+
+=== PREDIKSI ===
+   skenario total_qty total_diskon ongkos_kirim_dibayar_oleh_pembeli prediksi
+ Skenario 1         1            0                                 0 26931.69
+ Skenario 2         1            0                              3000 39333.51
+ Skenario 3         2            0                                 0 30869.41
+ batas_bawah_95 batas_atas_95
+       25034.71      28828.67
+       37495.79      41171.23
+       29005.93      32732.90
+Tersimpan: output/tables/prediksi.csv
+
+=== PLOT TAMBAHAN ===
+Tersimpan: output/plots/hist_y.png
+Tersimpan: output/plots/box_y.png
+Tersimpan: output/plots/residual_vs_fitted.png
+null device 
+          1 
+Tersimpan: output/plots/qq_plot.png
+
+Baris awal: 18868 
+Baris final: 18585 
+R-squared model berganda: 0.252134
+Analisis selesai tanpa error.
